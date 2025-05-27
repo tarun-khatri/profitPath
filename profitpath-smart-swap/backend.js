@@ -138,6 +138,10 @@ function generateSignature(method, path, body) {
   return signature;
 }
 
+// Mount modular API routes
+const routes = require('./backend/routes');
+app.use('/api', routes);
+
 app.listen(PORT, () => {
   console.log(`Backend listening on port ${PORT}`);
 });

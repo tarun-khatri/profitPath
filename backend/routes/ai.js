@@ -116,4 +116,33 @@ router.post('/interpret', async (req, res) => {
   }
 });
 
+// POST /ai/credit-score
+router.post('/credit-score', async (req, res) => {
+  try {
+    console.log('[POST /ai/credit-score] Incoming request body:', req.body);
+    const { factors } = req.body;
+    if (!factors) {
+      console.error('[POST /ai/credit-score] Missing factors in request body');
+      return res.status(400).json({ error: 'Missing factors' });
+    }
+    // Compose prompt for Gemini
+    const prompt = `You are an expert in blockchain analytics. Given the following wallet factors, score the address from 300 (worst) to 900 (best) using your own logic.\n\nFactors: ${JSON.stringify(factors, null, 2)}\n\nRespond with a JSON object: {\"score\": <number>, \"explanation\": <1-2 line short explanation of how the score was determined>} (explanation must be short and clear)`;
+    console.log('[POST /ai/credit-score] Gemini prompt:', prompt);
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
+    console.log('[POST /ai/credit-score] Gemini raw response:', text);
+    // Remove markdown code block if present
+    const cleaned = text.replace(/^```json|^```|```$/gm, '').trim();
+    console.log('[POST /ai/credit-score] Cleaned Gemini response:', cleaned);
+    const parsed = JSON.parse(cleaned);
+    console.log('[POST /ai/credit-score] Parsed response to client:', parsed);
+    res.json(parsed);
+  } catch (error) {
+    console.error('AI credit-score error:', error);
+    res.status(500).json({ error: 'Failed to score with AI' });
+  }
+});
+
 module.exports = router;

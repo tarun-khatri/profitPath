@@ -3,11 +3,10 @@ import React, { useState, useEffect } from 'react';
 import { WalletConnection } from '../components/WalletConnection';
 import { Portfolio } from '../components/Portfolio';
 import { SwapAssistant } from '../components/SwapAssistant';
-import { SmartRecommendations } from '../components/SmartRecommendations';
-import { TransactionHistory } from '../components/TransactionHistory';
 import { Navigation } from '../components/Navigation';
 import CrossChainSwapAssistant from '../components/CrossChainSwapAssistant';
 import { useAppKitAccount } from '@reown/appkit/react';
+import CreditScore from '../components/CreditScore';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('swap');
@@ -92,6 +91,7 @@ const Index = () => {
             <div className="lg:col-span-3">
               {activeTab === 'swap' && <SwapAssistant />}
               {activeTab === 'crosschain' && <CrossChainSwapAssistant />}
+              {activeTab === 'creditscore' && <CreditScore />}
               {/* {activeTab === 'history' && <TransactionHistory />} */}
             </div>
           </div>

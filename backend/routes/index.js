@@ -138,5 +138,6 @@ router.get('/portfolio/token-balances', async (req, res) => {
 router.use('/tokens', require('./tokens'));
 router.use('/health', require('./health'));
 router.use('/crosschain', require('./crosschain'));
+router.use('/credit-score', require('./credit-score'));
 
 module.exports = router;

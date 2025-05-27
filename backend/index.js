@@ -30,6 +30,7 @@ app.use('/', routes);
 app.use('/quotes', quotesRouter.router);
 app.use('/api/tokens', tokensRouter);
 app.use('/ai', aiRoutes);
+app.use('/api/credit-score', require('./routes/credit-score'));
 
 app.listen(PORT, () => {
   console.log(`Backend listening on port ${PORT}`);

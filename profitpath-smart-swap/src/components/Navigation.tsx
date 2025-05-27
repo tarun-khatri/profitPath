@@ -10,6 +10,7 @@ export const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange }
   const tabs = [
     { id: 'swap', label: 'Swap Assistant', icon: '🔄' },
     { id: 'crosschain', label: 'Cross Chain Swap Assistant', icon: '🌉' },
+    { id: 'creditscore', label: 'Credit Score', icon: '🏦' },
   ];
 
   return (
